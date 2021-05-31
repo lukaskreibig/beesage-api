@@ -23,29 +23,29 @@ const port = 3000;
 // We create a get route for '/'
 app.get("/", (request, response) => {
   // We send "Welcome to Express as a response"
-  response.send("Welcome to Express");
+  response.send("Welcome to Beesage Fake API");
 });
 
-// We create a route '/user/:name'
-app.get("/users/:name", (request, response) => {
-  // We send "Welcome and the name passed in url after users/"
-  response.send(`Welcome, ${request.params.name}`);
-});
+// // We create a route '/user/:name'
+// app.get("/users/:name", (request, response) => {
+//   // We send "Welcome and the name passed in url after users/"
+//   response.send(`Welcome, ${request.params.name}`);
+// });
 
-const fruits = ["Apple", "Banana", "Kiwi"];
+// const fruits = ["Apple", "Banana", "Kiwi"];
 
-// We create a route for '/fruits'
-app.get("/fruits", (request, response) => {
-  // We check if there is a fruit in our array match with the name query
-  // Ex: localhost:3000/fruits?name=Banana
-  if (fruits.includes(request.query.name)) {
-    // if the ressource is found, we send back the name
-    response.send(`Here is your ${request.query.name}`);
-  } else {
-    // if not we send a sorry message
-    response.send(`Sorry, ${request.query.name} not found...`);
-  }
-});
+// // We create a route for '/fruits'
+// app.get("/fruits", (request, response) => {
+//   // We check if there is a fruit in our array match with the name query
+//   // Ex: localhost:3000/fruits?name=Banana
+//   if (fruits.includes(request.query.name)) {
+//     // if the ressource is found, we send back the name
+//     response.send(`Here is your ${request.query.name}`);
+//   } else {
+//     // if not we send a sorry message
+//     response.send(`Sorry, ${request.query.name} not found...`);
+//   }
+// });
 
 const cocktails = [
   {
@@ -73,28 +73,10 @@ app.listen(port, () => {
   console.log(`Server is runing on ${port}`);
 });
 
-// create a POST route to add a new movie
+// GET THEM BEES!
 
-app.post("/api/movies", (req, res) => {
-  const { title, director, year, color, duration } = req.body;
-
-  connection.query(
-    "INSERT INTO movies(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
-
-    [title, director, year, color, duration],
-
-    (err, result) => {
-      if (err) {
-        res.status(500).send("Error saving the movie");
-      } else {
-        res.status(201).send("Movie successfully saved");
-      }
-    }
-  );
-});
-
-app.get("/api/movies", (req, res) => {
-  connection.query("SELECT * FROM movies", (err, result) => {
+app.get("/beewhoyouwant", (req, res) => {
+  connection.query("SELECT * FROM leaderboard", (err, result) => {
     if (err) {
       res.status(500).send("Error retrieving data from database");
     } else {
@@ -103,118 +85,64 @@ app.get("/api/movies", (req, res) => {
   });
 });
 
-// MAKE A NEW USER
+// // MAKE / POST A NEW USER
 
-app.post("/api/users", (req, res) => {
-  const { firstname, lastname, email } = req.body;
+// app.post("/api/users", (req, res) => {
+//   const { firstname, lastname, email } = req.body;
 
-  connection.query(
-    "INSERT INTO users(firstname, lastname, email) VALUES (?, ?, ?)",
+//   connection.query(
+//     "INSERT INTO users(firstname, lastname, email) VALUES (?, ?, ?)",
 
-    [firstname, lastname, email],
+//     [firstname, lastname, email],
 
-    (err, result) => {
-      if (err) {
-        res.status(500).send("Error saving the user");
-      } else {
-        res.status(201).send("User successfully saved");
-      }
-    }
-  );
-});
+//     (err, result) => {
+//       if (err) {
+//         res.status(500).send("Error saving the user");
+//       } else {
+//         res.status(201).send("User successfully saved");
+//       }
+//     }
+//   );
+// });
 
-// GET THE USER
+// // PUT / CHANGE THE USER
 
-app.get("/api/users", (req, res) => {
-  connection.query("SELECT * FROM users", (err, result) => {
-    if (err) {
-      res.status(500).send("Error retrieving data from database");
-    } else {
-      res.json(result);
-    }
-  });
-});
+// // This route will update a user in the DB
+// app.put("/api/users/:id", (req, res) => {
+//   // We get the ID from the url path :
+//   const userId = req.params.id;
+//   // We get the new attribute values for the user from req.body
+//   const userPropsToUpdate = req.body;
+//   // We send a UPDATE query to the DB
+//   connection.query(
+//     "UPDATE users SET ? WHERE id = ?",
+//     [userPropsToUpdate, userId],
+//     (err) => {
+//       // Once the DB operation is over, we can respond to the HTTP request
+//       if (err) {
+//         console.log(err);
+//         res.status(500).send("Error updating a user");
+//       } else {
+//         res.status(200).send("User updated successfully 🎉");
+//       }
+//     }
+//   );
+// });
 
-// CHANGE THE USER
+// // DELETE A USER in USER
 
-// This route will update a user in the DB
-app.put("/api/users/:id", (req, res) => {
-  // We get the ID from the url path :
-  const userId = req.params.id;
-  // We get the new attribute values for the user from req.body
-  const userPropsToUpdate = req.body;
-  // We send a UPDATE query to the DB
-  connection.query(
-    "UPDATE users SET ? WHERE id = ?",
-    [userPropsToUpdate, userId],
-    (err) => {
-      // Once the DB operation is over, we can respond to the HTTP request
-      if (err) {
-        console.log(err);
-        res.status(500).send("Error updating a user");
-      } else {
-        res.status(200).send("User updated successfully 🎉");
-      }
-    }
-  );
-});
-
-// PUT IN MOVIES TABLE
-
-// This route will update a user in the DB
-app.put("/api/movies/:id", (req, res) => {
-  // We get the ID from the url path :
-  const movieId = req.params.id;
-  // We get the new attribute values for the user from req.body
-  const moviePropsToUpdate = req.body;
-  // We send a UPDATE query to the DB
-  connection.query(
-    "UPDATE movies SET ? WHERE id = ?",
-    [moviePropsToUpdate, movieId],
-    (err) => {
-      // Once the DB operation is over, we can respond to the HTTP request
-      if (err) {
-        console.log(err);
-        res.status(500).send("Error updating a user");
-      } else {
-        res.status(200).send("User updated successfully 🎉");
-      }
-    }
-  );
-});
-
-// DELETE A USER in USER
-
-app.delete("/api/users/:id", (req, res) => {
-  const userId = req.params.id;
-  connection.query(
-    "DELETE FROM users WHERE id =?",
-    [userId],
-    (err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Error deleting an user");
-      } else {
-        res.status(200).send("User deleted!");
-      }
-    }
-  );
-});
-
-// DELETE A movie in movie
-
-app.delete("/api/movies/:id", (req, res) => {
-  const movieId = req.params.id;
-  connection.query(
-    "DELETE FROM movies WHERE id =?",
-    [movieId],
-    (err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Error deleting a movie");
-      } else {
-        res.status(200).send("Movie deleted!");
-      }
-    }
-  );
-});
+// app.delete("/api/users/:id", (req, res) => {
+//   const userId = req.params.id;
+//   connection.query(
+//     "DELETE FROM users WHERE id =?",
+//     [userId],
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         res.status(500).send("Error deleting an user");
+//       } else {
+//         res.status(200).send("User deleted!");
+//       }
+//     }
+//   );
+// });
