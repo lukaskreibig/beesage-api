@@ -1,8 +1,21 @@
-// We import expres
+// We import express
 const express = require("express");
+const connection = require("./db-config");
 
 // We store all express methods in a variable called app
 const app = express();
+
+connection.connect((err) => {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+  } else {
+    console.log(
+      "connected to database with threadId :  " + connection.threadId
+    );
+  }
+});
+
+app.use(express.json());
 
 // We store the port we want to use in a variable
 const port = 3000;
@@ -58,4 +71,150 @@ app.get("/cocktails", (request, response) => {
 // We listen to incoming request on port
 app.listen(port, () => {
   console.log(`Server is runing on ${port}`);
+});
+
+// create a POST route to add a new movie
+
+app.post("/api/movies", (req, res) => {
+  const { title, director, year, color, duration } = req.body;
+
+  connection.query(
+    "INSERT INTO movies(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
+
+    [title, director, year, color, duration],
+
+    (err, result) => {
+      if (err) {
+        res.status(500).send("Error saving the movie");
+      } else {
+        res.status(201).send("Movie successfully saved");
+      }
+    }
+  );
+});
+
+app.get("/api/movies", (req, res) => {
+  connection.query("SELECT * FROM movies", (err, result) => {
+    if (err) {
+      res.status(500).send("Error retrieving data from database");
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+// MAKE A NEW USER
+
+app.post("/api/users", (req, res) => {
+  const { firstname, lastname, email } = req.body;
+
+  connection.query(
+    "INSERT INTO users(firstname, lastname, email) VALUES (?, ?, ?)",
+
+    [firstname, lastname, email],
+
+    (err, result) => {
+      if (err) {
+        res.status(500).send("Error saving the user");
+      } else {
+        res.status(201).send("User successfully saved");
+      }
+    }
+  );
+});
+
+// GET THE USER
+
+app.get("/api/users", (req, res) => {
+  connection.query("SELECT * FROM users", (err, result) => {
+    if (err) {
+      res.status(500).send("Error retrieving data from database");
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+// CHANGE THE USER
+
+// This route will update a user in the DB
+app.put("/api/users/:id", (req, res) => {
+  // We get the ID from the url path :
+  const userId = req.params.id;
+  // We get the new attribute values for the user from req.body
+  const userPropsToUpdate = req.body;
+  // We send a UPDATE query to the DB
+  connection.query(
+    "UPDATE users SET ? WHERE id = ?",
+    [userPropsToUpdate, userId],
+    (err) => {
+      // Once the DB operation is over, we can respond to the HTTP request
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error updating a user");
+      } else {
+        res.status(200).send("User updated successfully 🎉");
+      }
+    }
+  );
+});
+
+// PUT IN MOVIES TABLE
+
+// This route will update a user in the DB
+app.put("/api/movies/:id", (req, res) => {
+  // We get the ID from the url path :
+  const movieId = req.params.id;
+  // We get the new attribute values for the user from req.body
+  const moviePropsToUpdate = req.body;
+  // We send a UPDATE query to the DB
+  connection.query(
+    "UPDATE movies SET ? WHERE id = ?",
+    [moviePropsToUpdate, movieId],
+    (err) => {
+      // Once the DB operation is over, we can respond to the HTTP request
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error updating a user");
+      } else {
+        res.status(200).send("User updated successfully 🎉");
+      }
+    }
+  );
+});
+
+// DELETE A USER in USER
+
+app.delete("/api/users/:id", (req, res) => {
+  const userId = req.params.id;
+  connection.query(
+    "DELETE FROM users WHERE id =?",
+    [userId],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error deleting an user");
+      } else {
+        res.status(200).send("User deleted!");
+      }
+    }
+  );
+});
+
+// DELETE A movie in movie
+
+app.delete("/api/movies/:id", (req, res) => {
+  const movieId = req.params.id;
+  connection.query(
+    "DELETE FROM movies WHERE id =?",
+    [movieId],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error deleting a movie");
+      } else {
+        res.status(200).send("Movie deleted!");
+      }
+    }
+  );
 });
