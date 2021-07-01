@@ -128,22 +128,22 @@ app.get("/beewhoyouwant", (req, res) => {
 //   );
 // });
 
-const cocktails = [
-  {
-    id: 0,
-    name: "Margarita",
-  },
-  {
-    id: 1,
-    name: "Mojito",
-  },
-  {
-    id: 2,
-    name: "Cuba Libre",
-  },
-];
-// We create a route for '/cocktails'
-app.get("/cocktails", (request, response) => {
-  // we send back a 200 status and the cocktail in a JSON format
-  response.status(200).json(cocktails);
-});
+// const cocktails = [
+//   {
+//     id: 0,
+//     name: "Margarita",
+//   },
+//   {
+//     id: 1,
+//     name: "Mojito",
+//   },
+//   {
+//     id: 2,
+//     name: "Cuba Libre",
+//   },
+// ];
+// // We create a route for '/cocktails'
+// app.get("/cocktails", (request, response) => {
+//   // we send back a 200 status and the cocktail in a JSON format
+//   response.status(200).json(cocktails);
+// });
