@@ -17,7 +17,7 @@ connection.connect((err) => {
 
 app.use(express.json());
 
-// We store the port we want to use in a variable
+// We store the port we want to use in a variable.........
 const port = 3000;
 
 // We create a get route for '/'
