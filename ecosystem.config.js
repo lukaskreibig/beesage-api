@@ -3,9 +3,11 @@ module.exports = {
     {
       name: "DravoAPI",
       script: "./index.js",
-      watch: ["server", "client"],
+      watch: true,
       watch_delay: 1000,
-      ignore_watch: ["node_modules", "pm2.log"],
+      ignore_watch: ["node_modules", "log-*.txt", ".git", ".vscode"],
+      error_file: "log-error.txt",
+      out_file: "log-output.txt",
       watch_options: {
         followSylinks: false,
       },
