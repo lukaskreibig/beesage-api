@@ -23,7 +23,7 @@ const port = 3000;
 // We create a get route for '/'
 app.get("/", (request, response) => {
   // We send "Welcome to Express as a response"
-  response.send("Welcome to Beesage API");
+  response.send("Welcome to Beesage API :)");
 });
 
 // // We create a route '/user/:name'
