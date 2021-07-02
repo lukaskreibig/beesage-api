@@ -1,6 +1,7 @@
 // We import express
 const express = require("express");
 const connection = require("./db-config");
+var cors = require("cors");
 
 // We store all express methods in a variable called app
 const app = express();
@@ -16,6 +17,7 @@ connection.connect((err) => {
 });
 
 app.use(express.json());
+app.use(cors());
 
 // We store the port we want to use in a variable.........
 const port = 3000;
