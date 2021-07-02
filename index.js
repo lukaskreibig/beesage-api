@@ -1,7 +1,7 @@
 // We import express
 const express = require("express");
 const connection = require("./db-config");
-var cors = require("cors");
+const cors = require("cors");
 
 // We store all express methods in a variable called app
 const app = express();
