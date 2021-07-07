@@ -1,7 +1,8 @@
 // We import express
 const express = require("express");
-const connection = require("./db-config");
+const connection = require("./db/config");
 const cors = require("cors");
+const userRoute = require('./routes/user-route');
 
 // We store all express methods in a variable called app
 const app = express();
@@ -28,6 +29,26 @@ app.get("/", (request, response) => {
   response.send("Welcome to Beesage API");
 });
 
+
+app.use("/beewhoyouwant", userRoute);
+
+// app.get("/beewhoyouwant", (req, res) => {
+//   connection.query("SELECT * FROM beekeeper", (err, result) => {
+//     if (err) {
+//       res.status(500).send("Error retrieving data from database");
+//     } else {
+//       res.json(result);
+//     }
+//   });
+// });
+
+
+
+app.listen(port, () => {
+  console.log(`Server is runing on ${port}`);
+});
+
+
 // // We create a route '/user/:name'
 // app.get("/users/:name", (request, response) => {
 //   // We send "Welcome and the name passed in url after users/"
@@ -52,21 +73,10 @@ app.get("/", (request, response) => {
 //
 
 // We listen to incoming request on port
-app.listen(port, () => {
-  console.log(`Server is runing on ${port}`);
-});
 
 // GET THEM BEES!
 
-app.get("/beewhoyouwant", (req, res) => {
-  connection.query("SELECT * FROM beekeeper", (err, result) => {
-    if (err) {
-      res.status(500).send("Error retrieving data from database");
-    } else {
-      res.json(result);
-    }
-  });
-});
+
 
 // // MAKE / POST A NEW USER
 
