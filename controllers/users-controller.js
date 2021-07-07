@@ -1,9 +1,9 @@
-const Users = require("../models/user-model");
+const Users = require("../models/user-models");
 
 const getAllUsers = (req, res, next) => {
-  Users.findAllUsers((err, results) => {
+  Users.findUsers((err, results) => {
     if (err) {
-      res.status(500).send("Error retrieving users");
+      res.status(500).send("error retrieving users");
     } else {
       res.json(results);
     }

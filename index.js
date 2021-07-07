@@ -3,6 +3,7 @@ const express = require("express");
 const connection = require("./db/config");
 const cors = require("cors");
 const userRoute = require('./routes/user-route');
+const authRoute = require('./routes/auth-route');
 
 // We store all express methods in a variable called app
 const app = express();
@@ -31,6 +32,7 @@ app.get("/", (request, response) => {
 
 
 app.use("/beewhoyouwant", userRoute);
+app.use("/auth", authRoute);
 
 // app.get("/beewhoyouwant", (req, res) => {
 //   connection.query("SELECT * FROM beekeeper", (err, result) => {
