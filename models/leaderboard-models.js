@@ -24,6 +24,15 @@ Leaderboard.findWdDays = (days) => {
 
 module.exports = Leaderboard;
 
+// Today
+
+// SELECT beekeeper.beekeeper_id, beekeeper.username, weight_delta.weight_delta, weight_delta.date,
+// beekeeper.email, beekeeper.city, beekeeper.country, beekeeper.country, beekeeper.experience,
+// beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture
+// FROM beekeeper
+// LEFT JOIN weight_delta ON weight_delta.beekeeper_id=beekeeper.beekeeper_id
+// WHERE date = CURDATE();
+
 // 7 days
 
 // SELECT beekeeper.beekeeper_id, beekeeper.username, weight_delta.weight_delta, weight_delta.date,
@@ -32,3 +41,12 @@ module.exports = Leaderboard;
 // FROM beekeeper
 // LEFT JOIN weight_delta ON weight_delta.beekeeper_id=beekeeper.beekeeper_id
 // WHERE date > now() - INTERVAL 7 day;
+
+// 30 days
+
+// SELECT beekeeper.beekeeper_id, beekeeper.username, weight_delta.weight_delta, weight_delta.date,
+// beekeeper.email, beekeeper.city, beekeeper.country, beekeeper.country, beekeeper.experience,
+// beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture
+// FROM beekeeper
+// LEFT JOIN weight_delta ON weight_delta.beekeeper_id=beekeeper.beekeeper_id
+// WHERE date > now() - INTERVAL 30 day;
