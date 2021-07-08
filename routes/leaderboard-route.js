@@ -5,7 +5,7 @@ const {
 } = require("../controllers/leaderboard-controller");
 const router = express.Router();
 
-router.get("/wd", getAllWd);
-router.get("/wd/:id", findWdByDays);
+router.get("/", getAllWd);
+router.get("/:id", findWdByDays);
 
 module.exports = router;
