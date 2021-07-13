@@ -2,20 +2,22 @@
 const express = require("express");
 const connection = require("./db/config");
 const cors = require("cors");
-const userRoute = require('./routes/user-route');
-const authRoute = require('./routes/auth-route');
+const userRoute = require("./routes/user-route");
+const authRoute = require("./routes/auth-route");
+const profileRoute = require("./routes/profile-route");
+const updateRoute = require("./routes/update-route");
 
 // We store all express methods in a variable called app
 const app = express();
 
 connection.connect((err) => {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-  } else {
-    console.log(
-      "connected to database with threadId :  " + connection.threadId
-    );
-  }
+	if (err) {
+		console.error("error connecting: " + err.stack);
+	} else {
+		console.log(
+			"connected to database with threadId :  " + connection.threadId
+		);
+	}
 });
 
 app.use(express.json());
@@ -26,13 +28,14 @@ const port = 3000;
 
 // We create a get route for '/'
 app.get("/", (request, response) => {
-  // We send "Welcome to Express as a response"
-  response.send("Welcome to Beesage API");
+	// We send "Welcome to Express as a response"
+	response.send("Welcome to Beesage API");
 });
-
 
 app.use("/beewhoyouwant", userRoute);
 app.use("/auth", authRoute);
+app.use("/profile", profileRoute);
+app.use("/update", updateRoute);
 
 // app.get("/beewhoyouwant", (req, res) => {
 //   connection.query("SELECT * FROM beekeeper", (err, result) => {
@@ -44,12 +47,9 @@ app.use("/auth", authRoute);
 //   });
 // });
 
-
-
 app.listen(port, () => {
-  console.log(`Server is runing on ${port}`);
+	console.log(`Server is runing on ${port}`);
 });
-
 
 // // We create a route '/user/:name'
 // app.get("/users/:name", (request, response) => {
@@ -77,8 +77,6 @@ app.listen(port, () => {
 // We listen to incoming request on port
 
 // GET THEM BEES!
-
-
 
 // // MAKE / POST A NEW USER
 
