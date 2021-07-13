@@ -6,7 +6,7 @@ const db = connection.promise();
 
 Leaderboard.findWd = (callback) => {
   connection.query(
-    "SELECT beekeeper.beekeeper_id, beekeeper.username, weight_delta.weight_delta, beekeeper.email, beekeeper.city, beekeeper.country, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture FROM beekeeper INNER JOIN weight_delta ON weight_delta.beekeeper_id=beekeeper.beekeeper_id ORDER BY weight_delta.weight_delta DESC;",
+    "SELECT beekeeper.beekeeper_id, beekeeper.username, weight_delta.weight_delta, beekeeper.email, beekeeper.region, beekeeper.country, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture FROM beekeeper INNER JOIN weight_delta ON weight_delta.beekeeper_id=beekeeper.beekeeper_id ORDER BY weight_delta.weight_delta DESC;",
     (err, results, fields) => {
       callback(err, results, fields);
     }
