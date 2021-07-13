@@ -6,6 +6,6 @@ const {
 const router = express.Router();
 
 router.get("/", getAllWd);
-router.get("/:id", findWdByDays);
+router.get("/:day", findWdByDays);
 
 module.exports = router;
