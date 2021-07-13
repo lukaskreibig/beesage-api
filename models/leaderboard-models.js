@@ -16,7 +16,7 @@ Leaderboard.findWd = (callback) => {
 Leaderboard.findWdDays = (days) => {
   return db
     .query(
-      "SELECT ROUND(AVG(weight_delta.weight_delta),2)  AS `average_wd`, beekeeper.beekeeper_id, beekeeper.username, weight_delta.weight_delta, beekeeper.email, beekeeper.region, beekeeper.country, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture FROM weight_delta INNER JOIN beekeeper ON beekeeper.beekeeper_id = weight_delta.beekeeper_id WHERE date > now() - INTERVAL ? day GROUP BY beekeeper.beekeeper_id ORDER BY `average_wd` DESC;",
+      "SELECT ROUND(AVG(weight_delta.weight_delta),2) AS `average_wd`, beekeeper.beekeeper_id, beekeeper.username, beekeeper.email, beekeeper.region, beekeeper.country, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture FROM weight_delta INNER JOIN beekeeper ON beekeeper.beekeeper_id = weight_delta.beekeeper_id WHERE date > now() - INTERVAL ? day GROUP BY beekeeper.beekeeper_id, beekeeper.username, beekeeper.email, beekeeper.region, beekeeper.country, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture ORDER BY `average_wd` DESC;",
       [days]
     )
     .then(([results]) => results);
