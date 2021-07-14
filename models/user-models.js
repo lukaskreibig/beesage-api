@@ -28,4 +28,14 @@ Users.login = (user, callback) => {
   );
 };
 
+Users.userValidate = (email, callback) => {
+  connection.query(
+    "SELECT * FROM beekeeper WHERE email = ?",
+    [email],
+    (error, result) => {
+      callback(error, result);
+    }
+  );
+};
+
 module.exports = Users;
