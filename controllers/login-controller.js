@@ -15,7 +15,7 @@ const enter = (req, res) => {
                   message:'You have successfully logged in!'
                 })
               }else{
-                res.send('Wrong password')
+                res.json({message: 'Wrong password'})
               }
             }) 
         }
