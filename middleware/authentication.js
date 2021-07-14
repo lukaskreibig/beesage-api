@@ -1,10 +1,18 @@
+const jwt = require("jsonwebtoken");
+
 const authentication = (req, res, next) => {
-  if (req.cookies.login === "true") {
-    console.log("User is logged in");
-    next();
+  if (!req.cookies.token) {
+    res.send("Something went wrong")   
   } else {
-    res.status(403).send("Unauthorized");
-  }
+    jwt.verify(req.cookies.token, "your-secret-key", (err, decoded) => {
+      if(err) {
+        res.send("Wrong Access")
+      }
+      req.beekeeper_id = decoded.id
+      console.log(decoded)
+      next();
+    })
+  }  
 };
 
 module.exports = { authentication };
