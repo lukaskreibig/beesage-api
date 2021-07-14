@@ -11,7 +11,8 @@ const enter = (req, res) => {
            bcrypt.compare(req.body.password, results[0].password)
             .then(isThereAMatch => {
               if(isThereAMatch){
-                res.cookie('login', true, {httpOnly: true, expires: new Date(Date.now()+ 30000), }).json({
+                res.status(200).cookie('login', true, {httpOnly: true })
+                .json({
                   username: results[0].username,
                   message:'You have successfully logged in!'
                 })

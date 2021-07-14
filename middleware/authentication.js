@@ -1,9 +1,9 @@
 const authentication = (req, res, next) => {
   if (req.cookies.login === "true") {
-    console.log("user is logged in");
+    console.log("User is logged in");
     next();
   } else {
-    res.status(403).send("unauthorized");
+    res.status(403).send("Unauthorized");
   }
 };
 
