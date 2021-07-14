@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const Users = require("../models/user-models");
 
-const validate = (req, res, next) => {
+const signupvalidate = (req, res, next) => {
   const { username, password, email } = req.body;
 
   Users.userValidate(email, (error, result) => {
@@ -22,6 +22,12 @@ const validate = (req, res, next) => {
   });
 };
 
+
+
+
+
+
+
 module.exports = {
-  validate,
+    signupvalidate  
 };
