@@ -1,19 +1,50 @@
 const Edit = require("../models/profile-models");
+// const passwordComplexity = require("joi-password-complexity");
 const Joi = require("joi");
 
 const updateUser = (req, res) => {
-	const { username, email, bio, apiaries, beehives, experience } = req.body;
+	const {
+		username,
+		email,
+		bio,
+		apiaries,
+		beehives,
+		experience,
+		country,
+		region,
+		// password,
+		// oldPassword,
+		// confirmPassword,
+	} = req.body;
 	const { error } = Joi.object({
-		username: Joi.string().min(2).max(12),
+		username: Joi.string().alphanum().min(2).max(12),
 		email: Joi.string().email().max(255),
 		bio: Joi.string().allow(null, "").max(255),
-		apiaries: Joi.number(),
-		beehives: Joi.number(),
+		apiaries: Joi.number().min(1),
+		beehives: Joi.number().min(1),
 		experience: Joi.number().max(100),
+		country: Joi.string(),
+		region: Joi.string(),
+		// password: passwordComplexity(),
+		// oldPassword: passwordComplexity(),
+		// confirmPassword: passwordComplexity(),
 	}).validate(
-		{ username, email, bio, apiaries, beehives, experience },
+		{
+			username,
+			email,
+			bio,
+			apiaries,
+			beehives,
+			experience,
+			country,
+			region,
+			// password,
+			// oldPassword,
+			// confirmPassword,
+		},
 		{ abortEarly: false }
 	);
+
 	if (error) {
 		res.status(422).json({ validationErrors: error.details });
 	} else {
