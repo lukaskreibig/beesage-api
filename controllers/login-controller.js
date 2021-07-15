@@ -2,18 +2,15 @@ const bcrypt = require("bcrypt");
 const Users = require("../models/user-models");
 const jwt = require("jsonwebtoken");
 
-const enter = (req, res) => {
-    Users.login(req.body.username, (err, results) => {
-       //console.log(req.body)
+const userSigin = (req, res) => {
+    Users.login(req.body.username, (err, results) => {       
         if (err) {
             res.status(500).send('Server Error, we could find that user :(')
-          } else {
-           
+          } else {           
            bcrypt.compare(req.body.password, results[0].password)
             .then(isThereAMatch => {
               if(isThereAMatch){
-                const token = jwt.sign({ id: results[0].beekeeper_id }, "your-secret-key")
-                //const selectedUser = token
+                const token = jwt.sign({ id: results[0].beekeeper_id }, "your-secret-key")                
                 res.status(200).cookie('token', token, { httpOnly: true })
                 .json({       
                   id : results[0].beekeeper_id,            
@@ -29,5 +26,5 @@ const enter = (req, res) => {
     })
 }; 
 
-module.exports = { enter };
+module.exports = { userSigin };
 

@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const Users = require("../models/user-models");
 
-const register = (req, res) => {
+const userRegistration = (req, res) => {
     bcrypt
       .hash(req.body.password, 10)
       .then((hashedPassword) => {
@@ -22,4 +22,4 @@ const register = (req, res) => {
   }
 
 
-  module.exports={ register };
+  module.exports={ userRegistration };
