@@ -22,12 +22,6 @@ const signupvalidate = (req, res, next) => {
   });
 };
 
-
-
-
-
-
-
 module.exports = {
     signupvalidate  
 };

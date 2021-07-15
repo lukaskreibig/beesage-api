@@ -39,3 +39,5 @@ Users.userValidate = (email, callback) => {
 };
 
 module.exports = Users;
+
+
