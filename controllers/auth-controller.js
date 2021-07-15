@@ -8,12 +8,7 @@ const register = (req, res) => {
         let user = {
           username: req.body.username,
           password: hashedPassword,
-          email: req.body.email,
-          city: req.body.city,
-          country: req.body.country,
-          experience: req.body.experience,
-          behives: req.body.behives,
-          apiaries: req.body.apiaries
+          email: req.body.email         
         }
        Users.signup(user, (error) => {
           if (error) {
