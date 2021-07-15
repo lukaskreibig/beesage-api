@@ -8,21 +8,17 @@ Users.findUsers = (callback) => {
   });
 };
 
-Users.signup = (user, callback) => {
+Users.createUser = (user, callback) => {
   connection.query(
-    "INSERT INTO beekeeper SET ?",
-    user,
-    (err, results, fields) => {
+    "INSERT INTO beekeeper SET ?", user, (err, results, fields) => {
       callback(err, results, fields);
     }
   );
 };
 
-Users.login = (user, callback) => {
+Users.getUser = (user, callback) => {
   connection.query(
-    `SELECT * FROM beekeeper WHERE username=?`,
-    user,
-    (err, results, fields) => {
+    `SELECT * FROM beekeeper WHERE username=?`, user, (err, results, fields) => {
       callback(err, results, fields);
     }
   );
@@ -30,9 +26,7 @@ Users.login = (user, callback) => {
 
 Users.userValidate = (email, callback) => {
   connection.query(
-    "SELECT * FROM beekeeper WHERE email = ?",
-    [email],
-    (error, result) => {
+    "SELECT * FROM beekeeper WHERE email = ?", [email], (error, result) => {
       callback(error, result);
     }
   );

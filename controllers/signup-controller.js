@@ -10,7 +10,7 @@ const userRegistration = (req, res) => {
           password: hashedPassword,
           email: req.body.email         
         }
-       Users.signup(user, (error) => {
+       Users.createUser(user, (error) => {
           if (error) {
             res.status(500).send("Server Error, we could not register that user.");
           } else {

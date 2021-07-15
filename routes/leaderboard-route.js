@@ -4,8 +4,9 @@ const {
   findWdByDays,
 } = require("../controllers/leaderboard-controller");
 const router = express.Router();
+const { authentication } = require("../middleware/authentication");
 
-router.get("/", getAllWd);
-router.get("/:day", findWdByDays);
+router.get("/", authentication, getAllWd);
+router.get("/:day", authentication, findWdByDays);
 
 module.exports = router;
