@@ -1,12 +1,12 @@
 const Joi = require("joi");
 const Users = require("../models/user-models");
 
-const signupvalidate = (req, res, next) => {
+const signupValidate = (req, res, next) => {
   const { username, password, email } = req.body;
 
   Users.userValidate(email, (error, result) => {
     if (result[0]) {
-      res.status(409).json({ message: "This email is already used" });
+      res.status(409).json({ message: "This email is already in use." });
     } else {
       const err = Joi.object({
         username: Joi.string().min(2).max(255).required(),
@@ -23,5 +23,5 @@ const signupvalidate = (req, res, next) => {
 };
 
 module.exports = {
-    signupvalidate  
+    signupValidate  
 };

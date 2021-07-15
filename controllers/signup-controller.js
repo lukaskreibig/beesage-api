@@ -12,9 +12,9 @@ const userRegistration = (req, res) => {
         }
        Users.signup(user, (error) => {
           if (error) {
-            res.status(500).send("Server Error, we could not register that user :(");
+            res.status(500).send("Server Error, we could not register that user.");
           } else {
-            res.status(201).send("Successfully registered! :D");
+            res.status(201).send("Successfully registered!");
           }
        })
       })

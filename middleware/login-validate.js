@@ -1,7 +1,6 @@
 const Joi = require("joi");
-const Users = require("../models/user-models");
 
-const loginvalidate = (req, res, next) => {
+const loginValidate = (req, res, next) => {
   const { username, password } = req.body;
 
   const err = Joi.object({
@@ -16,5 +15,5 @@ const loginvalidate = (req, res, next) => {
 };
 
 module.exports = {
-  loginvalidate,
+  loginValidate,
 };

@@ -2,10 +2,10 @@ const bcrypt = require("bcrypt");
 const Users = require("../models/user-models");
 const jwt = require("jsonwebtoken");
 
-const userSigin = (req, res) => {
+const userSignin = (req, res) => {
     Users.login(req.body.username, (err, results) => {       
         if (err) {
-            res.status(500).send('Server Error, we could find that user :(')
+            res.status(500).send('Server Error, we could not find that user.')
           } else {           
            bcrypt.compare(req.body.password, results[0].password)
             .then(isThereAMatch => {
@@ -17,14 +17,14 @@ const userSigin = (req, res) => {
                   username: results[0].username,
                   message:'You have successfully logged in!'
                 })
-                console.log(results[0].beekeeper_id)
+                // console.log(results[0].beekeeper_id)
               }else{
-                res.json({message: 'Wrong password'})
+                res.json({message: 'Username and password do not match.'})
               }
             }) 
         }
     })
 }; 
 
-module.exports = { userSigin };
+module.exports = { userSignin };
 

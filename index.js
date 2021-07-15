@@ -4,7 +4,6 @@ const connection = require("./db/config");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userRoute = require("./routes/user-route");
-const authRoute = require("./routes/user-route");
 const profileRoute = require("./routes/profile-route");
 const updateRoute = require("./routes/update-route");
 const leaderboardRoute = require("./routes/leaderboard-route");
@@ -32,9 +31,8 @@ app.get("/", (request, response) => {
   response.send("Welcome to Beesage API");
 });
 
-app.use("/beewhoyouwant", userRoute);
 app.use("/lb", leaderboardRoute);
-app.use("/auth", authRoute);
+app.use("/auth", userRoute);
 app.use("/profile", profileRoute);
 app.use("/update", updateRoute);
 
