@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const Users = require("../models/user-models");
 const jwt = require("jsonwebtoken");
 
-const userSignin = (req, res) => {
+const userSignin = (req, res, next) => {
     Users.getUser(req.body.username, (err, results) => {       
         if (err) {
             res.status(500).send('Server Error, we could not find that user.')
@@ -13,6 +13,7 @@ const userSignin = (req, res) => {
                 const token = jwt.sign({ id: results[0].beekeeper_id }, "your-secret-key")                
                 res.status(200).cookie('token', token, { httpOnly: true })
                 req.userId = results[0].beekeeper_id
+                res.json(results);
                 next()
                 // console.log(results[0].beekeeper_id)
               }else{
