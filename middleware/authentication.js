@@ -11,6 +11,7 @@ const authentication = (req, res, next) => {
         res.send("Wrong Access.")
       }
       req.beekeeper_id = decoded.id
+      req.test = req.cookies.token
       next();
     })
   }  

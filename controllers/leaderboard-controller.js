@@ -5,7 +5,7 @@ const getAllWd = (req, res) => {
     if (err) {
       res.status(500).send(`Error retrieving Weight Delta: ${err}`);
     } else {
-      res.json(results);
+      res.json({ test :req.test});
     }
   });
 };
