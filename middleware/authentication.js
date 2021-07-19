@@ -4,7 +4,7 @@ const authentication = (req, res, next) => {
   if (!req.cookies.token) {
     res.send("Something went wrong.")   
   } else {
-    jwt.verify(req.cookies.token, "your-secret-key", (err, decoded) => {
+    jwt.verify(req.cookies.token, process.env.SECRET_KEY, (err, decoded) => {
       if(err) {
         res.send("Wrong Access.")
       }

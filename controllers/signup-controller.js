@@ -12,7 +12,7 @@ const userRegistration = (req, res) => {
         }
        Users.createUser(user, (error) => {
           if (error) {
-            res.status(500).send("Server Error, we could not register that user.");
+            res.status(500).send(`Server Error, we could not register that user. ${error}`);
           } else {
             res.status(201).send("Successfully registered!");
           }
