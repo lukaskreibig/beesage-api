@@ -22,7 +22,7 @@ connection.connect((err) => {
 });
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin : true, credentials : true}));
 
 // We store the port we want to use in a variable.
 const port = 3000;

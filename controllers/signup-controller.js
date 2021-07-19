@@ -8,7 +8,8 @@ const userRegistration = (req, res) => {
         let user = {
           username: req.body.username,
           password: hashedPassword,
-          email: req.body.email         
+          email: req.body.email,
+         // profile_picture: "https://drive.google.com/file/d/1snOZVke12HivUaYZHgdfz8MYGZy8Op_l/view?usp=sharing"         
         }
        Users.createUser(user, (error) => {
           if (error) {
