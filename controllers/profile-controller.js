@@ -5,10 +5,10 @@ const getUser = (req, res) => {
 		.then((results) => {
 			if (results) res.json(results);
 			else res.status(404).send("Not found");
+			console.log(err);
 		})
 		.catch((err) => {
 			console.log(err);
-			res.status(500).send(`Error retrieving from databases ${err}`);
 		});
 };
 

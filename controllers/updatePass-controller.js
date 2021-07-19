@@ -3,12 +3,16 @@ const passwordComplexity = require("joi-password-complexity");
 const Joi = require("joi");
 
 const updatePassword = (req, res) => {
-	const { password, oldPassword, confirmPassword } = req.body;
-	const { error } = Joi.object({
-		password: passwordComplexity(),
-		oldPassword: passwordComplexity(),
-		confirmPassword: passwordComplexity(),
-	}).validate({ password, oldPassword, confirmPassword });
+	const { password, confirmPassword } = req.body;
+	const { error } = Joi.object()
+		.keys({
+			password: Joi.string()
+				.regex(/^[a-zA-Z0-9]{3,30}$/)
+				.required(),
+			// Force passwords to match
+			confirmPassword: Joi.any().equal(Joi.ref("password")).required(),
+		})
+		.validate({ password, confirmPassword });
 	if (error) {
 		res.status(422).json({ validationErrors: error.details });
 	} else {

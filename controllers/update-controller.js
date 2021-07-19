@@ -1,5 +1,4 @@
 const Edit = require("../models/profile-models");
-// const passwordComplexity = require("joi-password-complexity");
 const Joi = require("joi");
 
 const updateUser = (req, res) => {
@@ -12,9 +11,6 @@ const updateUser = (req, res) => {
 		experience,
 		country,
 		region,
-		// password,
-		// oldPassword,
-		// confirmPassword,
 	} = req.body;
 	const { error } = Joi.object({
 		username: Joi.string().alphanum().min(2).max(12),
@@ -25,23 +21,8 @@ const updateUser = (req, res) => {
 		experience: Joi.number().max(100),
 		country: Joi.string(),
 		region: Joi.string(),
-		// password: passwordComplexity(),
-		// oldPassword: passwordComplexity(),
-		// confirmPassword: passwordComplexity(),
 	}).validate(
-		{
-			username,
-			email,
-			bio,
-			apiaries,
-			beehives,
-			experience,
-			country,
-			region,
-			// password,
-			// oldPassword,
-			// confirmPassword,
-		},
+		{ username, email, bio, apiaries, beehives, experience, country, region },
 		{ abortEarly: false }
 	);
 
