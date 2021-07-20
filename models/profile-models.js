@@ -15,9 +15,12 @@ Edit.update = (update, updatedItem) => {
 		.then(([results]) => results);
 };
 
-Edit.updatePass = (updatePass, newPass) => {
+Edit.updatePass = (id, newPass) => {
 	return db
-		.query("UPDATE beekeeper SET ? WHERE beekeeper_id=?", [newPass, updatePass])
+		.query("UPDATE beekeeper SET password=? WHERE beekeeper_id=?", [
+			newPass,
+			id,
+		])
 		.then(([results]) => results);
 };
 
