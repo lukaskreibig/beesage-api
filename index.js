@@ -36,6 +36,7 @@ app.use("/auth", userRoute);
 app.use("/profile", profileRoute);
 app.use("/update", updateRoute);
 
+
 app.listen(port, () => {
   console.log(`Server is runing on ${port}`);
 });

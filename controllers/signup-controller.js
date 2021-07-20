@@ -6,10 +6,10 @@ const userRegistration = (req, res) => {
       .hash(req.body.password, 10)
       .then((hashedPassword) => {
         let user = {
+          profile_picture: 'https://thetreeparty.nl/wp-content/uploads/2018/05/avatar-placeholder.png',         
           username: req.body.username,
           password: hashedPassword,
-          email: req.body.email,
-         // profile_picture: "https://drive.google.com/file/d/1snOZVke12HivUaYZHgdfz8MYGZy8Op_l/view?usp=sharing"         
+          email: req.body.email,          
         }
        Users.createUser(user, (error) => {
           if (error) {

@@ -11,12 +11,11 @@ const userSignin = (req, res, next) => {
            bcrypt.compare(req.body.password, results[0].password)
             .then(isThereAMatch => {
               if(isThereAMatch){
-                const token = jwt.sign({ id: results[0].beekeeper_id }, process.env.SECRET_KEY)                
-                res.status(200).cookie('token', token, { httpOnly: true })
-                req.userId = results[0].beekeeper_id
+                const token = jwt.sign({ id: results[0].beekeeper_id }, process.env.SECRET_KEY)   
+                res.status(200).cookie('token', token, { httpOnly: true }, )
+                req.user = results[0].beekeeper_id
                 res.json(results);
                 next()
-                // console.log(results[0].beekeeper_id)
               }else{
                 res.json({message: 'Username and password do not match.'})
               }
