@@ -7,7 +7,7 @@ const userRoute = require("./routes/user-route");
 const profileRoute = require("./routes/profile-route");
 const updateRoute = require("./routes/update-route");
 const leaderboardRoute = require("./routes/leaderboard-route");
-
+const updatePassRoute = require("./routes/updatePass-route");
 // We store all express methods in a variable called app
 const app = express();
 
@@ -35,6 +35,7 @@ app.use("/lb", leaderboardRoute);
 app.use("/auth", userRoute);
 app.use("/profile", profileRoute);
 app.use("/update", updateRoute);
+app.use("/updatePass", updatePassRoute);
 
 
 app.listen(port, () => {
