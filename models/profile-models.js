@@ -15,4 +15,13 @@ Edit.update = (update, updatedItem) => {
 		.then(([results]) => results);
 };
 
+Edit.updatePass = (id, newPass) => {
+	return db
+		.query("UPDATE beekeeper SET password=? WHERE beekeeper_id=?", [
+			newPass,
+			id,
+		])
+		.then(([results]) => results);
+};
+
 module.exports = Edit;
