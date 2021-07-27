@@ -13,26 +13,28 @@ const updateUser = (req, res) => {
 		region,
 	} = req.body;
 	const { error } = Joi.object({
-		username: Joi.string().alphanum().min(2).max(12),
+		username: Joi.string().alphanum().min(2).max(12).allow(null, ""),
 		email: Joi.string().email().max(255),
-		bio: Joi.string().allow(null, "").max(255),
-		apiaries: Joi.number().min(1),
-		beehives: Joi.number().min(1),
-		experience: Joi.number().max(100),
+		bio: Joi.string().max(255).allow(null, ""),
+		apiaries: Joi.number().allow(null),
+		beehives: Joi.number().allow(null),
+		experience: Joi.number().max(100).allow(null),
 		country: Joi.string(),
 		region: Joi.string(),
 	}).validate(
-		{ username, email, bio, apiaries, beehives, experience, country, region },
+		{ email, bio, apiaries, beehives, experience, country, region },
 		{ abortEarly: false }
 	);
 
 	if (error) {
 		res.status(422).json({ validationErrors: error.details });
 	} else {
-		Edit.update(req.params.update, req.body)
+		console.log(req.params, req.body);
+		Edit.update(req.params.id, req.body)
 			.then((results) => {
 				if (results) res.json(results);
 				else res.status(404).send("Not found");
+				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err);

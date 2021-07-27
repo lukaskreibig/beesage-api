@@ -9,9 +9,9 @@ Edit.findOne = (user) => {
 		.then(([results]) => results);
 };
 
-Edit.update = (update, updatedItem) => {
+Edit.update = (id, email) => {
 	return db
-		.query("UPDATE beekeeper SET ? WHERE beekeeper_id=?", [updatedItem, update])
+		.query("UPDATE beekeeper SET ? WHERE beekeeper_id=?", [email, id])
 		.then(([results]) => results);
 };
 
