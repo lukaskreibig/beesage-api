@@ -21,15 +21,15 @@ const updateUser = (req, res) => {
 		experience: Joi.number().max(100).allow(null),
 		country: Joi.string(),
 		region: Joi.string(),
+		profile_picture: Joi.any(),
 	}).validate(
-		{ email, bio, apiaries, beehives, experience, country, region },
+		{ username, email, bio, apiaries, beehives, experience, country, region },
 		{ abortEarly: false }
 	);
 
 	if (error) {
 		res.status(422).json({ validationErrors: error.details });
 	} else {
-		console.log(req.params, req.body);
 		Edit.update(req.params.id, req.body)
 			.then((results) => {
 				if (results) res.json(results);
