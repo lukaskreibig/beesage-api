@@ -15,7 +15,7 @@ const findWdByDays = (req, res) => {
   Leaderboard.findWdDays(req.params.day)
     .then((results) => {
       if (results) {
-        connection.release().res.json(results);
+        res.json(results);
       } else res.status(404).send("Not found");
     })
     .catch((err) => {
