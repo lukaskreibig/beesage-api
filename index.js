@@ -11,7 +11,7 @@ const updatePassRoute = require("./routes/updatePass-route");
 // We store all express methods in a variable called app
 const app = express();
 
-connection.connect((err) => {
+connection.getConnection((err) => {
   if (err) {
     console.error("error connecting: " + err.stack);
   } else {
@@ -22,7 +22,7 @@ connection.connect((err) => {
 });
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({origin : true, credentials : true}));
+app.use(cors({ origin: true, credentials: true }));
 
 // We store the port we want to use in a variable.
 const port = 3000;
@@ -36,7 +36,6 @@ app.use("/auth", userRoute);
 app.use("/profile", profileRoute);
 app.use("/update", updateRoute);
 app.use("/updatePass", updatePassRoute);
-
 
 app.listen(port, () => {
   console.log(`Server is runing on ${port}`);
