@@ -1,7 +1,7 @@
 const Edit = require("../models/profile-models");
 const Joi = require("joi");
 
-const updateUser = (req, res) => {
+const updateUser = (req, res, next) => {
 	const {
 		username,
 		email,
@@ -13,14 +13,14 @@ const updateUser = (req, res) => {
 		region,
 	} = req.body;
 	const { error } = Joi.object({
-		username: Joi.string().alphanum().min(2).max(12).allow(null, ""),
+		username: Joi.string().alphanum().min(2).max(12),
 		email: Joi.string().email().max(255),
 		bio: Joi.string().max(255).allow(null, ""),
 		apiaries: Joi.number().allow(null),
 		beehives: Joi.number().allow(null),
 		experience: Joi.number().max(100).allow(null),
-		country: Joi.string(),
-		region: Joi.string(),
+		country: Joi.string().allow(null, ""),
+		region: Joi.string().allow(null, ""),
 		profile_picture: Joi.any(),
 	}).validate(
 		{ username, email, bio, apiaries, beehives, experience, country, region },
@@ -32,9 +32,10 @@ const updateUser = (req, res) => {
 	} else {
 		Edit.update(req.params.id, req.body)
 			.then((results) => {
-				if (results) res.json(results);
-				else res.status(404).send("Not found");
-				console.log(res);
+				if (results) {
+					req.id = req.params.id;
+					next();
+				} else res.status(404).send("Not found");
 			})
 			.catch((err) => {
 				console.log(err);
