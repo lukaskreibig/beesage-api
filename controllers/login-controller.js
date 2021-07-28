@@ -13,13 +13,14 @@ const userSignin = (req, res, next) => {
 				.then((isThereAMatch) => {
 					if (isThereAMatch) {
 						const token = jwt.sign(
-							{ username: results[0].username, id: results[0].beekeeper_id },
-							process.env.JWT_KEY
+							{ id: results[0].beekeeper_id },
+							process.env.SECRET_KEY
 						);
 						res.status(200).cookie("token", token, { httpOnly: true });
-						req.user = results[0].beekeeper_id;
+						req.userId = results[0].beekeeper_id;
 						res.json(results);
 						next();
+						// console.log(results[0].beekeeper_id)
 					} else {
 						res.json({ message: "Username and password do not match." });
 					}
