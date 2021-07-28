@@ -1,4 +1,5 @@
 const Leaderboard = require("../models/leaderboard-models");
+const connection = require("../db/config");
 
 const getAllWd = (req, res) => {
   Leaderboard.findWd((err, results) => {
@@ -15,10 +16,12 @@ const findWdByDays = (req, res) => {
     .then((results) => {
       if (results) res.json(results);
       else res.status(404).send("Not found");
+      connection.release();
     })
     .catch((err) => {
       console.log(err);
       res.status(500).send(`Error retrieving from databases ${err}`);
+      connection.release();
     });
 };
 
