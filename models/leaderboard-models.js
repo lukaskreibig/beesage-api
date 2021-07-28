@@ -19,7 +19,10 @@ Leaderboard.findWdDays = (days) => {
       "SELECT t1.beekeeper_id, t1.avg_wd, t2.avg_wd_before, t1.wd_rank, t2.wd_rank_before, t1.username, t1.email, t1.region, t1.country, t1.experience, t1.beehives, t1.apiaries, t1.profile_picture, t1.bio FROM (SELECT ROUND(AVG(weight_delta.weight_delta),2) AS `avg_wd`, beekeeper.beekeeper_id, beekeeper.username, beekeeper.email, beekeeper.region, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture, beekeeper.bio, RANK () OVER ( ORDER BY ROUND(AVG(weight_delta.weight_delta),2) DESC ) wd_rank FROM weight_delta INNER JOIN beekeeper ON beekeeper.beekeeper_id = weight_delta.beekeeper_id WHERE date > now() - INTERVAL ? day GROUP BY beekeeper.beekeeper_id, beekeeper.username, beekeeper.email, beekeeper.region, beekeeper.country, beekeeper.experience, beekeeper.beehives, beekeeper.apiaries, beekeeper.profile_picture, beekeeper.bio) t1 LEFT JOIN (SELECT ROUND(AVG(weight_delta.weight_delta),2) AS `avg_wd_before`, weight_delta.beekeeper_id, RANK () OVER ( ORDER BY ROUND(AVG(weight_delta.weight_delta),2) DESC ) wd_rank_before FROM weight_delta WHERE (date BETWEEN now() - INTERVAL 2 * ? DAY AND now() - INTERVAL ? DAY) GROUP BY weight_delta.beekeeper_id) t2 ON (t1.beekeeper_id = t2.beekeeper_id) ORDER BY t1.avg_wd DESC",
       [days, days, days]
     )
-    .then(connection.release(), ([results]) => results);
+    .then(([results]) => {
+      connection.release();
+      results;
+    });
 };
 
 module.exports = Leaderboard;
