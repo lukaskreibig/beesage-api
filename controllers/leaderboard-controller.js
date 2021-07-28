@@ -14,13 +14,12 @@ const getAllWd = (req, res) => {
 const findWdByDays = (req, res) => {
   Leaderboard.findWdDays(req.params.day)
     .then((results) => {
-      connection.release();
-      if (results) res.json(results);
-      else res.status(404).send("Not found");
+      if (results) {
+        res.json(results).connection.release();
+      } else res.status(404).send("Not found");
     })
     .catch((err) => {
       console.log(err);
-      connection.release();
       res.status(500).send(`Error retrieving from databases ${err}`);
     });
 };
