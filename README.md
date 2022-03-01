@@ -1,4 +1,4 @@
-# Dravo - Backend Repository
+# Dravo - Backend Repository (API)
 
 --> API Backend Respository can be found here:
 https://github.com/beesage/dravo
